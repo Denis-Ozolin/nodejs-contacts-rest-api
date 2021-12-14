@@ -1,16 +1,15 @@
 const listContacts = require('./listContacts')
-const updateContacts = require('./updateContacts')
+const updateListContacts = require('./updateListContacts')
 
-async function removeContact(contactId) {
+const removeContact = async(contactId) => {
   const contacts = await listContacts()
-  const contactIndex = contacts.findIndex(({ id }) => String(id) === String(contactId))
-  if (contactIndex === -1) {
+  const idx = contacts.findIndex(({ id }) => String(id) === String(contactId))
+  if (idx === -1) {
     return null
   }
-  const newContacts = contacts.filter((_, index) => index !== contactIndex)
-  await updateContacts(newContacts)
-  console.table(newContacts)
-  return contacts[contactIndex]
+  const newContacts = contacts.filter((_, index) => index !== idx)
+  await updateListContacts(newContacts)
+  return contacts[idx]
 }
 
 module.exports = removeContact

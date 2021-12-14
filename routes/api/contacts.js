@@ -50,8 +50,27 @@ router.post('/', async (req, res, next) => {
     if (error) {
       throw createError(400, 'missing required name field')
     }
+    const result = await contactsOperations.addContact(req.body)
+    res.json({
+      status: 'success',
+      code: 201,
+      data: {
+        result
+      }
+    })
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put('/:contactId', async (req, res, next) => {
+  try {
+    const { error } = contactSchema.validate(req.body)
+    if (error) {
+      throw createError(400, 'missing required name field')
+    }
     const { contactId } = req.params
-    const result = await contactsOperations.updateContacts(contactId, req.body)
+    const result = await contactsOperations.updateContact(contactId, req.body)
     res.json({
       status: 'success',
       code: 200,
@@ -84,25 +103,4 @@ router.delete('/:contactId', async (req, res, next) => {
   }
 })
 
-router.put('/:contactId', async (req, res, next) => {
-  try {
-    const { error } = contactSchema.validate(req.body)
-    if (error) {
-      throw createError(400, 'missing required name field')
-    }
-    const result = await contactsOperations.addContact(req.body)
-    res.json({
-      status: 'success',
-      code: 201,
-      data: {
-        result
-      }
-    })
-  } catch (error) {
-    next(error)
-  }
-})
-
 module.exports = router
-
-// http://localhost:3000/api/contacts

@@ -1,13 +1,12 @@
 const { v4: uuidv4 } = require('uuid')
 const listContacts = require('./listContacts')
-const updateContacts = require('./updateContacts')
+const updateListContacts = require('./updateListContacts')
 
-async function addContact(name, email, phone) {
+const addContact = async(body) => {
   const contacts = await listContacts()
-  const newContact = { id: uuidv4(), name, email, phone }
-  const newContacts = [...contacts, newContact]
-  await updateContacts(newContacts)
-  console.log(newContact)
+  const newContact = { id: uuidv4(), ...body }
+  const newContacts = [newContact, ...contacts]
+  await updateListContacts(newContacts)
   return newContact
 }
 
