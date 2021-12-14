@@ -50,6 +50,46 @@ router.post('/', async (req, res, next) => {
     if (error) {
       throw createError(400, 'missing required name field')
     }
+    const { contactId } = req.params
+    const result = await contactsOperations.updateContacts(contactId, req.body)
+    res.json({
+      status: 'success',
+      code: 200,
+      data: {
+        result
+      }
+    })
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.delete('/:contactId', async (req, res, next) => {
+  try {
+    const { contactId } = req.params
+    const result = await contactsOperations.removeContact(contactId)
+    if (!result) {
+      throw createError(404, 'Not found')
+    }
+    res.json({
+      status: 'success',
+      code: 200,
+      message: 'contact deleted',
+      data: {
+        result
+      }
+    })
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put('/:contactId', async (req, res, next) => {
+  try {
+    const { error } = contactSchema.validate(req.body)
+    if (error) {
+      throw createError(400, 'missing required name field')
+    }
     const result = await contactsOperations.addContact(req.body)
     res.json({
       status: 'success',
@@ -63,12 +103,6 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.delete('/:contactId', async (req, res, next) => {
-  res.json({ message: 'template message' })
-})
-
-router.patch('/:contactId', async (req, res, next) => {
-  res.json({ message: 'template message' })
-})
-
 module.exports = router
+
+// http://localhost:3000/api/contacts
