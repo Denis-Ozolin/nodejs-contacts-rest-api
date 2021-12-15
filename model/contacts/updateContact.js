@@ -7,7 +7,7 @@ const updateContact = async(contactId, body) => {
   if (idx === -1) {
     return null
   }
-  contacts[idx] = { ...body, id: contactId }
+  contacts[idx] = { id: contactId, ...body }
   await updateListContacts(contacts)
   return contacts[idx]
 }
