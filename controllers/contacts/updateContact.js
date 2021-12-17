@@ -1,7 +1,7 @@
 const createError = require('http-errors')
 const { Contact } = require('../../models')
 
-const updateById = async (req, res) => {
+const updateContact = async (req, res) => {
   const { contactId } = req.params
   const result = await Contact.findByIdAndUpdate(contactId, req.body, { new: true })
   if (!result) {
@@ -16,4 +16,4 @@ const updateById = async (req, res) => {
   })
 }
 
-module.exports = updateById
+module.exports = updateContact

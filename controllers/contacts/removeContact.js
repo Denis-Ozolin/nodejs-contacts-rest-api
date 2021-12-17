@@ -1,7 +1,7 @@
 const createError = require('http-errors')
 const { Contact } = require('../../models')
 
-const removeById = async (req, res) => {
+const removeContact = async (req, res) => {
   const { contactId } = req.params
   const result = await Contact.findByIdAndRemove(contactId)
   if (!result) {
@@ -17,4 +17,4 @@ const removeById = async (req, res) => {
   })
 }
 
-module.exports = removeById
+module.exports = removeContact
