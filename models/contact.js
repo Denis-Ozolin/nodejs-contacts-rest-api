@@ -15,11 +15,9 @@ const contactSchema = Schema({
   },
   favorite: {
     type: Boolean,
-    default: false,
+    default: false
   },
-}, {
-  versionKey: false, timestamps: true
-})
+}, { versionKey: false, timestamps: true })
 
 const joiSchema = Joi.object({
   name: Joi.string().required(),
@@ -29,7 +27,7 @@ const joiSchema = Joi.object({
 })
 
 const favoriteJoiSchema = Joi.object({
-  favorite: Joi.bool().required
+  favorite: Joi.bool().valid(false, true).required()
 })
 
 const Contact = model('contact', contactSchema)
