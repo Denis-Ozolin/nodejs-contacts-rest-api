@@ -27,7 +27,8 @@ const joiSchema = Joi.object({
 })
 
 const favoriteJoiSchema = Joi.object({
-  favorite: Joi.bool().valid(false, true).required()
+  favorite: Joi.bool()
+  // .valid(false, true).required()
 })
 
 const Contact = model('contact', contactSchema)
