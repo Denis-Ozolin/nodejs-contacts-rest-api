@@ -33,14 +33,15 @@ const joiSignupSchema = Joi.object({
   // token: Joi.string().required(),
 })
 
-// const favoriteJoiSchema = Joi.object({
-//   favorite: Joi.bool()
-//   // .valid(false, true).required()
-// })
+const joiLoginSchema = Joi.object({
+  password: Joi.string().required(),
+  email: Joi.string().required(),
+})
 
 const User = model('user', userSchema)
 
 module.exports = {
   User,
   joiSignupSchema,
+  joiLoginSchema
 }
