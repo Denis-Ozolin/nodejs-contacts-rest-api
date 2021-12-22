@@ -20,17 +20,12 @@ const userSchema = Schema({
     type: String,
     default: null,
   },
-  // owner: {
-  //   type: SchemaTypes.ObjectId,
-  //   ref: 'user',
-  // }
 }, { versionKey: false, timestamps: true })
 
 const joiSignupSchema = Joi.object({
   password: Joi.string().required(),
   email: Joi.string().required(),
-  // subscription: Joi.bool(),
-  // token: Joi.string().required(),
+  subscription: Joi.string(),
 })
 
 const joiLoginSchema = Joi.object({

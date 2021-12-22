@@ -8,14 +8,19 @@ const signup = async(req, res) => {
   if (user) {
     throw createError(409, 'Email in use')
   }
+
   const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
-  await User.create({ email, password: hashPassword })
+
+  const result = await User.create({ email, password: hashPassword })
+  const subscription = result.subscription
+
   res.status(201).json({
     status: 'success',
     code: 201,
     data: {
       user: {
         email,
+        subscription
       }
     }
   })

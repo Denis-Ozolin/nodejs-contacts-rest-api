@@ -1,9 +1,5 @@
-const signup = require('./signup')
-const login = require('./login')
-const current = require('./current')
+const getCurrent = require('./getCurrent')
 
 module.exports = {
-  signup,
-  login,
-  current
+  getCurrent
 }
