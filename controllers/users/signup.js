@@ -1,5 +1,6 @@
 const createError = require('http-errors')
 const bcrypt = require('bcrypt')
+const gravatar = require('gravatar')
 const { User } = require('../../models')
 
 const signup = async(req, res) => {
@@ -11,7 +12,8 @@ const signup = async(req, res) => {
 
   const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
 
-  const result = await User.create({ email, password: hashPassword })
+  const avatarURL = gravatar.url(email)
+  const result = await User.create({ email, password: hashPassword, avatarURL })
   const subscription = result.subscription
 
   res.status(201).json({
@@ -20,6 +22,7 @@ const signup = async(req, res) => {
     data: {
       user: {
         email,
+        avatarURL,
         subscription
       }
     }
